@@ -5,6 +5,7 @@ import nl.stijngroenen.tradfri.device.Device;
 import nl.stijngroenen.tradfri.device.Gateway;
 import nl.stijngroenen.tradfri.device.Light;
 import nl.stijngroenen.tradfri.util.Credentials;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -14,13 +15,21 @@ import java.util.List;
 
 @Service
 public class DeviceService {
+
     private Gateway gateway;
     private Credentials credentials;
     private String identity;
     private String key;
 
+    @Value("${gateway_ip}")
+    private String gatewayIp;
+
+
+    @Value("${security_code}")
+    private String securityCode;
+
     public Collection<Device> getDevices() {
-        //config();
+        config();
         return List.of(gateway.getDevices());
     }
 
@@ -58,8 +67,8 @@ public class DeviceService {
     }
 
     public void config() {
-        this.gateway = new Gateway("192.168.1.179");
-        this.credentials = gateway.connect("9qgszNBivGBJFH1f");
+        this.gateway = new Gateway(gatewayIp);
+        this.credentials = gateway.connect(securityCode);
         this.identity = credentials.getIdentity();
         this.key = credentials.getKey();
     }
