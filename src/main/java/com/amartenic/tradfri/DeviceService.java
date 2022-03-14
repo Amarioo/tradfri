@@ -24,43 +24,33 @@ public class DeviceService {
     @Value("${gateway_ip}")
     private String gatewayIp;
 
-
     @Value("${security_code}")
     private String securityCode;
 
     public Collection<Device> getDevices() {
-        config();
         return List.of(gateway.getDevices());
     }
 
     public Device getGolvlampa() {
-        config();
         return gateway.getDevice(65539);
-
     }
 
     public void turnOnLamp() {
-        config();
-        Device device = getGolvlampa();
+        Device device = gateway.getDevice(65539);
         Light light = device.toLight();
-        log.info("Light brightness: ");
-        log.info( light.getBrightness().toString());
         light.setOn(true);
-
     }
 
     public void turnOffLamp() {
-        config();
-        Device device = getGolvlampa();
+        Device device = gateway.getDevice(65539);
         Light light = device.toLight();
         light.setOn(false);
     }
 
-    public void setBrightness(double procentage) {
-        config();
-        Device device = getGolvlampa();
+    public void setBrightness(double percentage) {
+        Device device = gateway.getDevice(65539);
         Light light = device.toLight();
-        int brightness = (int) (255 * (double) (procentage/100.0));
+        int brightness = (int) (255 * (double) (percentage/100.0));
         log.info("Light brightness: ");
         log.info(String.valueOf(brightness));
         light.setBrightness(brightness);
