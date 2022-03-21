@@ -2,6 +2,7 @@ package com.amartenic.tradfri;
 
 import lombok.extern.slf4j.Slf4j;
 import nl.stijngroenen.tradfri.device.Device;
+import nl.stijngroenen.tradfri.device.DeviceType;
 import nl.stijngroenen.tradfri.device.Gateway;
 import nl.stijngroenen.tradfri.device.Light;
 import nl.stijngroenen.tradfri.util.Credentials;
@@ -33,6 +34,11 @@ public class DeviceService {
 
     public Device getGolvlampa() {
         return gateway.getDevice(65539);
+    }
+
+    public
+    boolean isGolvlampOn() {
+        return getGolvlampa().toLight().getOn();
     }
 
     public void turnOnLamp() {

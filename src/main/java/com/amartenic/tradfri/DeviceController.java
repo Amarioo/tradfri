@@ -1,6 +1,7 @@
 package com.amartenic.tradfri;
 
 import nl.stijngroenen.tradfri.device.Device;
+import nl.stijngroenen.tradfri.device.DeviceType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,12 @@ public class DeviceController {
     public ResponseEntity<Device> getGolvlampa() {
         Device device = service.getGolvlampa();
         return new ResponseEntity<>(device, HttpStatus.OK);
+    }
+
+    @GetMapping("/golvlampa/status")
+    public ResponseEntity<Boolean> isGolvlampaOn() {
+        boolean str = service.isGolvlampOn();
+        return new ResponseEntity<>(str, HttpStatus.OK);
     }
 
     @PostMapping("/golvlampa/on")
