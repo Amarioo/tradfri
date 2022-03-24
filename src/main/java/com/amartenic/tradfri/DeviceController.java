@@ -19,8 +19,16 @@ public class DeviceController {
 
     @GetMapping("/all")
     public ResponseEntity<Collection<Device>> getAll() {
-        Collection <Device> devices = service.getDevices();
+        Collection<Device> devices = service.getDevices();
         return new ResponseEntity<>(devices, HttpStatus.OK);
+    }
+
+    @PostMapping("/golvlampa/colour/{colour}")
+    public ResponseEntity setColour(@PathVariable int colour) {
+        System.out.println(colour);
+        service.changeColourHex(colour);
+        return new ResponseEntity(HttpStatus.OK);
+
     }
 
     @GetMapping("/golvlampa")
@@ -43,7 +51,7 @@ public class DeviceController {
 
     @PostMapping("/golvlampa/off")
     public ResponseEntity turnOff() {
-      service.turnOffLamp();
+        service.turnOffLamp();
         return new ResponseEntity(HttpStatus.OK);
     }
 

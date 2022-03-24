@@ -36,8 +36,7 @@ public class DeviceService {
         return gateway.getDevice(65539);
     }
 
-    public
-    boolean isGolvlampOn() {
+    public boolean isGolvlampOn() {
         return getGolvlampa().toLight().getOn();
     }
 
@@ -45,6 +44,30 @@ public class DeviceService {
         Device device = gateway.getDevice(65539);
         Light light = device.toLight();
         light.setOn(true);
+    }
+
+    public void changeColourHex(int colour) {
+        Device device = gateway.getDevice(65539);
+        Light light = device.toLight();
+        switch (colour) {
+            case 1:
+                light.setColourHex("efd275");
+                break;
+            case 2:
+                light.setColourHex("f1e0b5");
+                break;
+            case 3:
+                light.setColourHex("f2eccf");
+                break;
+            case 4:
+                light.setColourHex("f3f3e3");
+                break;
+            case 5:
+                light.setColourHex("f5faf6");
+                break;
+
+        }
+
     }
 
     public void turnOffLamp() {
@@ -56,7 +79,7 @@ public class DeviceService {
     public void setBrightness(double percentage) {
         Device device = gateway.getDevice(65539);
         Light light = device.toLight();
-        int brightness = (int) (255 * (double) (percentage/100.0));
+        int brightness = (int) (255 * (double) (percentage / 100.0));
         log.info("Light brightness: ");
         log.info(String.valueOf(brightness));
         light.setBrightness(brightness);
