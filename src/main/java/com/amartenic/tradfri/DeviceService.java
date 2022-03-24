@@ -46,6 +46,28 @@ public class DeviceService {
         light.setOn(true);
     }
 
+    public int getGolvlampaColourHex() {
+        Device device = gateway.getDevice(65539);
+        Light light = device.toLight();
+        log.info(light.getColourHex());
+        if (light.getColourHex().equals("efd275")) {
+            return 1;
+        }
+
+        else if (light.getColourHex().equals("f1e0b5")) {
+            return 2;
+        }
+
+        else if (light.getColourHex().equals("f2eccf")) {
+            return 3;
+        }
+
+        else if (light.getColourHex().equals("f3f3e3")) {
+            return 4;
+        }
+        else return 5;
+    }
+
     public void changeColourHex(int colour) {
         Device device = gateway.getDevice(65539);
         Light light = device.toLight();

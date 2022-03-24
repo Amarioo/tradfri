@@ -1,7 +1,6 @@
 package com.amartenic.tradfri;
 
 import nl.stijngroenen.tradfri.device.Device;
-import nl.stijngroenen.tradfri.device.DeviceType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +27,19 @@ public class DeviceController {
         System.out.println(colour);
         service.changeColourHex(colour);
         return new ResponseEntity(HttpStatus.OK);
-
     }
 
     @GetMapping("/golvlampa")
     public ResponseEntity<Device> getGolvlampa() {
         Device device = service.getGolvlampa();
         return new ResponseEntity<>(device, HttpStatus.OK);
+    }
+
+    @GetMapping("/golvlampa/colour")
+    public ResponseEntity<Integer> getGolvlampaColour() {
+        int colour = service.getGolvlampaColourHex();
+        return new ResponseEntity<>(colour, HttpStatus.OK);
+
     }
 
     @GetMapping("/golvlampa/status")
